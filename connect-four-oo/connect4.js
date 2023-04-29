@@ -24,6 +24,10 @@ class Game{
     this.height = height;
     this.currPlayer = 1; // active player: 1 or 2
     this.board = []; // array of rows, each row is array of cells  (board[y][x])
+    this.gameEnabled = false;
+
+    this.makeBoard();
+    this.makeHtmlBoard();
   }
 
   /** findSpotForCol: given column x, return top empty y (null if filled) */
@@ -46,6 +50,34 @@ class Game{
     const spot = document.getElementById(`${this.prefix}-${y}-${x}`);
     spot.append(piece);
   }  
+
+/** removePiecesInTable : reset game board*/
+  removePiecesInTable = ()=>{
+    for(let y=0; y< this.height; y++){
+      for(let x=0; x<this.width;x++){
+        if(this.board[y][x]){
+          let spot = document.getElementById(`${this.prefix}-${y}-${x}`);
+          spot.firstChild.remove();
+        }
+      }
+    }
+  }
+
+/** setTopOfTable: enable or disable the cells in header */
+  setTopOfTable = ()=>{
+    if(this.gameEnabled){
+      for (let x = 0; x < this.width; x++) {
+        const headCell = document.getElementById(`${this.prefix}-${x}`);
+        headCell.addEventListener('click', this.handleClick);
+      }
+    }
+    else{
+      for (let x = 0; x < this.width; x++) {
+        const headCell = document.getElementById(`${this.prefix}-${x}`);
+        headCell.removeEventListener('click', this.handleClick);
+      }
+    }
+  }
 
 /** endGame: announce game end */
   endGame(msg) {
@@ -104,16 +136,46 @@ class Game{
     
     // check for win
     if (this.checkForWin()) {
+      this.gameEnabled = false;
+      this.setTopOfTable();
       return this.endGame(`Player ${this.currPlayer} won!`);
     }
     
     // check for tie
     if (this.board.every(row => row.every(cell => cell))) {
+      this.gameEnabled = false;
+      this.setTopOfTable();
       return this.endGame('Tie!');
     }
       
     // switch players
     this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+  }
+
+  // called when start button is clicked, resetting the board
+  handleStartClick = (evt)=>{
+    this.removePiecesInTable();
+    this.board = [];
+    this.makeBoard();
+    this.gameEnabled = true;
+    this.setTopOfTable();
+  }
+
+  //   MouseEnter
+  handleMouseEnter = (evt)=>{
+    let target = evt.target;
+    if(this.gameEnabled){
+      target.style.backgroundColor = 'gold';
+    }
+    else{
+      target.style.backgroundColor = 'white';
+    }
+  }
+
+  // MouseLeave
+  handleMouseLeave = (evt)=>{
+    let target = evt.target;
+    target.style.backgroundColor = 'white';
   }
 
  /** makeBoard: create in-JS board structure:
@@ -132,8 +194,15 @@ class Game{
     const body = document.querySelector("body");
     // create div for game
     const game = document.createElement('div');
+    game.setAttribute("id", this.prefix + "-game");
     game.classList.add('game');
     body.append(game);
+
+    // create 'start' button
+    const btn_start = document.createElement("button");
+    btn_start.innerText = "Start Game";
+    btn_start.addEventListener("click", this.handleStartClick);
+    body.append(btn_start);
 
     // create tabe for game board
     const board = document.createElement('table');
@@ -143,12 +212,13 @@ class Game{
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
     top.setAttribute('id', this.prefix + '-column-top');
-    top.classList.add("column-top");
-    top.addEventListener('click', this.handleClick);
-
+    
     for (let x = 0; x < this.width; x++) {
       const headCell = document.createElement('td');
       headCell.setAttribute('id', `${this.prefix}-${x}`);
+      headCell.classList.add("column-top");
+      headCell.addEventListener("mouseenter", this.handleMouseEnter);
+      headCell.addEventListener("mouseleave", this.handleMouseLeave);
       top.append(headCell);
     }
 
@@ -168,16 +238,20 @@ class Game{
     game.append(board);
   }
 
+  //reset main part of board
+  makeHtmlBoardMain = ()=>{
+   // remove pieces
+
+  }
 }
 
 // create gameRoom-1
 const game1 = new Game(WIDTH, HEIGHT);
-game1.makeBoard();
-game1.makeHtmlBoard();
+
 
 // create gameRoom-2
-const game2 = new Game(WIDTH, HEIGHT);
-game2.makeBoard();
-game2.makeHtmlBoard();
+// const game2 = new Game(WIDTH, HEIGHT);
+// game2.makeBoard();
+// game2.makeHtmlBoard();
 
 
