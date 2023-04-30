@@ -1,3 +1,7 @@
+body{
+  display:flex;
+  justify-content: space-around;
+}
 /* game board table */
 .game{
   position:relative;
@@ -32,5 +36,4 @@ td.column-top {
   border: dashed 1px lightgray;
   background-color: white;
 }
-
 

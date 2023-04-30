@@ -11,6 +11,17 @@ const HEIGHT = 6;
 const COLOR_P1 = 'red';
 const COLOR_P2 = 'blue';
 
+/** define class Player */
+class Player{
+  constructor(color,num){
+    this.color = color;
+    this.num = num;
+  }
+  setColor = (color)=>{
+    this.color = color;
+  }
+}
+
 /** define class Game */
 class Game{
   // static fields
@@ -22,7 +33,11 @@ class Game{
     this.prefix = `${Game.gameRoomCount}`;
     this.width = width;
     this.height = height;
-    this.currPlayer = 1; // active player: 1 or 2
+
+    this.player1 = new Player(COLOR_P1 , '1');
+    this.player2 = new Player(COLOR_P2 , '2');
+
+    this.currPlayer = this.player1; // active player
     this.board = []; // array of rows, each row is array of cells  (board[y][x])
     this.gameEnabled = false;
 
@@ -44,7 +59,7 @@ class Game{
   placeInTable(y, x) {
     const piece = document.createElement('div');
     piece.classList.add('piece');
-    piece.classList.add(`p${this.currPlayer}`);
+    piece.style.backgroundColor = this.currPlayer.color;
     piece.style.top = -50 * (y + 2);
 
     const spot = document.getElementById(`${this.prefix}-${y}-${x}`);
@@ -138,7 +153,8 @@ class Game{
     if (this.checkForWin()) {
       this.gameEnabled = false;
       this.setTopOfTable();
-      return this.endGame(`Player ${this.currPlayer} won!`);
+      setTimeout(() => this.endGame(`Player ${this.currPlayer.color} won!`), 200);
+      return;
     }
     
     // check for tie
@@ -149,7 +165,7 @@ class Game{
     }
       
     // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+    this.currPlayer = this.currPlayer === this.player1 ? this.player2: this.player1;
   }
 
   // called when start button is clicked, resetting the board
@@ -159,6 +175,12 @@ class Game{
     this.makeBoard();
     this.gameEnabled = true;
     this.setTopOfTable();
+
+    const playerColor_1 = document.getElementById(this.prefix + "-c1");
+    this.player1.setColor(playerColor_1.value);
+
+    const playerColor_2 = document.getElementById(this.prefix + "-c2");
+    this.player2.setColor(playerColor_2.value);
   }
 
   //   MouseEnter
@@ -198,11 +220,22 @@ class Game{
     game.classList.add('game');
     body.append(game);
 
-    // create 'start' button
+    // create div to host inputs of player color and start button
+    const inputs = document.createElement('div');
+    const color1 = document.createElement('input');
+    color1.setAttribute('id', this.prefix + "-c1");
+    inputs.append(color1);
+
+    const color2 = document.createElement('input');
+    color2.setAttribute('id', this.prefix + "-c2");
+    inputs.append(color2);
+
     const btn_start = document.createElement("button");
     btn_start.innerText = "Start Game";
     btn_start.addEventListener("click", this.handleStartClick);
-    body.append(btn_start);
+    inputs.append(btn_start);
+    
+    game.append(inputs)
 
     // create tabe for game board
     const board = document.createElement('table');
@@ -247,11 +280,6 @@ class Game{
 
 // create gameRoom-1
 const game1 = new Game(WIDTH, HEIGHT);
-
-
-// create gameRoom-2
-// const game2 = new Game(WIDTH, HEIGHT);
-// game2.makeBoard();
-// game2.makeHtmlBoard();
+const game2 = new Game(WIDTH, HEIGHT);
 
 
