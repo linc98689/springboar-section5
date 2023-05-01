@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="movie.css">
+    <title>Movie Review</title>
+</head>
+<body>
+    <!-- rate a new movie -->
+    <section id="new-movie">
+        <h2>Rate A Movie</h2>
+        <form id="movie-form" >
+            <label for="title">Movie Title</label>
+            <input type="text" id="title">
+            <label for="rate">Rate</label>
+            <input type="text" id="rate">
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+    
+    <!-- list movies rated -->
+    <section id="rated-movies">
+        <h2>Rated Movies</h2>
+        <ul id="movie-list"></ul>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="movie.js"></script>
+</body>
+</html>
