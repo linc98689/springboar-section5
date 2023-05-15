@@ -39,7 +39,7 @@ In your own terms, define the following terms:
 - What are the processes that happen when you type “http://somesite.com/some/page.html” into a browser?
   > First the browser checks if the requested page is saved in the computer, if not, it needs DNS to find the IP address of the hostname, and send a HTTP request to the server. Then the server sends the response back to the browser to render it to a regular web page. The browser may send more requests to retrieve resources needed for the page.
 
-### Part Two: Practice Tools
+### Part Two: Practice Tools/Part Three: Explore Dev Tools
 
 1. Using curl, make a GET request to the icanhazdadjoke.com API to find all jokes involving the word “pirate”
 
@@ -86,3 +86,5 @@ Serving HTTP on :: port 8000 (http://[::]:8000/) ...
 ```
 
 ![spring](spring.png)
+
+### Part Four: Explore the URL API
