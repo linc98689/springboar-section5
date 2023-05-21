@@ -1,0 +1,39 @@
+.body, h1{
+    box-sizing: border-box;
+    font-family:Sans-Serif;
+}
+.container{
+    display:flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top:30px;
+ 
+}
+.center{
+    text-align:center;
+    margin:auto;
+}
+.img-fixed{
+    display:block;
+    Height: 200px;
+    margin: 15px auto;
+}
+
+#form{
+    margin-top:10px;
+}
+
+button{
+    border-radius: 2px 4px;
+    padding: 5px;
+    color:white;
+}
+#btn-search{
+    background-color: rgb(51, 173, 230);
+    border:3px solid rgba(51, 173, 230,0.3) ;
+}
+#btn-clear{
+    background-color:rgb(242, 109, 48);
+    border:3px solid rgba(242, 109, 48, 0.3) ;
+}
