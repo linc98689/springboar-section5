@@ -1,0 +1,143 @@
+/* some colors you may find useful:
+  #115ff4
+  #060ce9
+  #28a200
+  #8d2ab5
+  #74119c
+*/
+* {
+  box-sizing: border-box;
+  font-family:proxima-nova,Helvetica, sans-serif;
+}
+body{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  background-image: url("jeopardy.png");
+  background-size:cover;
+  background-position: center;
+}
+
+tr {
+  height:auto;
+  text-align:center;
+  margin:0;
+  padding:0;
+}
+
+.icard{
+  height:100%;
+  width:100%;
+  border:none;
+}
+.title{
+  color:#ffb0a1
+}
+.question{
+  padding: 30px;
+  height:70%;
+  color:white;
+  /* background-color:#2407b7; */
+}
+.hint{
+  position:fixed;
+  bottom: 5px;
+  width:100%;
+  color:rgb(7, 11, 125);
+  padding: 5px 3px;
+  font-size: 16px;
+  background-image:linear-gradient(45deg, rgb(244, 237, 242), rgba(151, 241, 208, 0.817));
+}
+
+.answer{
+  height:30%;
+  color:#ffb0a1;
+  margin:auto;
+  vertical-align:bottom;
+  padding-bottom: 0;
+  /* background-color:#2407b7; */
+}
+.large{
+  font-size: 32px
+}
+#spin-container{
+  display:none;
+  position:fixed;
+  left: 50%;
+  top: 35%;
+  z-index: 1000;
+  height: 31px;
+  width: 31px;
+  font-size: 2em;
+}
+
+#jeopardy{
+  position:absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  background-color: black;
+  margin:0;
+}
+
+table{
+  table-layout: fixed;
+  width: 100vw;
+  height: 450px;
+  margin:auto;
+  border: 8px solid black;
+}
+
+td, th{
+  font-size:16px ;
+  margin:3px;
+  width:16%;
+  height: 30%;
+  background-color:#2407b7;
+  color:white;
+  border: 5px solid black;
+}
+
+header{
+  position: fixed;
+  left: 50%;
+  top: 10px;
+  transform: translate(-50%, 0);
+  
+  display:flex;
+  justify-content:space-evenly;
+  align-items: center;
+  text-align:center;
+  color: rgb(112, 12, 90);
+  margin:15px auto;
+}
+header h1{
+  margin-bottom: 0;
+}
+
+#start{
+  margin-left:10px;
+  color:white;
+  padding:0.2rem 0.8rem;
+  font-size: 16px;
+  border-radius: 8px;
+}
+.btn-start{
+  background-image:linear-gradient(45deg, rgb(244, 237, 242), rgba(106, 2, 71, 0.817));
+  /* border:2px solid #8e7af2; */
+}
+.btn-start-over{
+  background-color:rgb(4, 4, 88) ;
+  border:1px solid rgb(141, 188, 242)
+}
+.ipop{
+  /* display:none;  */
+  position: fixed;
+  top: 50%;
+  left:50%;
+  width:100%;
+  height:450px;
+  transform: translate(-50%, -50%);
+  background-color:#7244c2;
+  /* z-index:1500; */
+}
